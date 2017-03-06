@@ -1,10 +1,8 @@
 #include "ReverseString.h"
 
-
-
-std::string reverse(std::string word)
+std::string reverse(std::string str)
 {
-    std::string new_word="";
-    for(int i=0; i< word.length();i++) new_word= word[i] + new_word;
-    return new_word;
+    std::string new_str="";
+    for(int i= 0; i< str.length();i++) new_str= str[i] + new_str;
+    return new_str;
 }
