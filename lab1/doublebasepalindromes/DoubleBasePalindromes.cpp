@@ -15,11 +15,11 @@ bool palindrome(std::string str)
 uint64_t DoubleBasePalindromes(int max_vaule_exculsive)
 {
     if (max_vaule_exculsive< 0) return 0;
-    int sum;
-    for(int i= 0; i<max_vaule_exculsive;i++)
+    uint64_t sum= 0;
+    for(uint64_t i= 0; i<max_vaule_exculsive;i++)
     {
         std::string tmp="";
-        int w= i;
+        uint64_t w= i;
         while(w>0)
         {
             tmp= std::to_string(w%2) + tmp;
