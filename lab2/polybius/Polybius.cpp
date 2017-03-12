@@ -29,11 +29,10 @@ std::string PolybiusDecrypt(std::string crypted)
 {
     std::string code="abcdefghiklmnopqrstuvwxyz";
     std::string output="";
-    int i;
 
-    for(int d=0;d<crypted.length();d+2)
+    for(int d=0;d<crypted.length();d+=2)
     {
-        output+= code[std::stoi(crypted[d])*5+std::stoi(crypted[d+1])-1];
+        output+= code[((crypted[d]-48)-1)*5+(crypted[d+1]-48)-1];
     }
 
     return output;
