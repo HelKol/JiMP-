@@ -7,6 +7,7 @@
 #include "CCounter.h"
 
 
+
 std::unique_ptr <Counter> Init();
 
 void Inc(std::string key, std::unique_ptr <Counter> *counter);
