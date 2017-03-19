@@ -1,4 +1,3 @@
-#include <tic.h>//
 // Created by rencpawe on 14.03.17.
 //
 
@@ -8,10 +7,11 @@
 #include <string>
 #include <memory>
 #include <map>
-using namespace std;
+
+
 namespace ccounter {
     struct Counter {
-
+        std::map<std::string, int> v;
     };
 
     std::unique_ptr <Counter> Init();
