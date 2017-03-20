@@ -2,41 +2,62 @@
 // Created by rencpawe on 07.03.17.
 //
 
-#include "GreatestProduct.h"
+#include <vector>
+#include <cstdlib>
+#include <algorithm>
+#include <iostream>
+using std::vector;
 
-int GreatestProduct(const std::vector<int> &numbers, int k) {
-    std::vector<int> tmp;
-    int max= 1;
-    for (int v : numbers) {
-        tmp.push_back(v);
-        if(tmp.size()== k){
-            for (int v : tmp) {
-                max*= v;
-            }
+void SortAbs(std::vector < int > num)
+{
+    int n=num.size();
+    int pom, j;
+    for(int i=1; i<n; i++)
+    {
+
+        pom = num[i];
+        j = i-1;
+
+        while(j>=0 && abs(num[j])>abs(pom))
+        {
+            num[j+1] = num[j];
+            --j;
         }
-        if(tmp.size()>k){
-            int to_erase= -1;
-            for (int i=0;i<k;i++){
-                int max_tmp= 1;
-                for (int d=0; d<k;d++){
-                    if(d==i){
-                        max_tmp*= tmp[k];
-                    } else {
-                        max_tmp+= tmp[d];
-                    }
-                }
-                if (max_tmp> max){
-                    max= max_tmp;
-                    to_erase= i;
-                }
-            }
-            if (to_erase!=-1)
-                tmp.erase(tmp.begin()+to_erase);
-            else
-                tmp.pop_back();
-            }
-        }
-
-
-    return max;
+        num[j+1] = pom;
+    }
 }
+
+
+int GreatestProduct(const vector<int> &numbers, int k) {
+
+    std::vector < int > num=numbers;
+
+
+    sort( num.begin(), num.end() );
+    std::vector<int> sorted = num;
+    SortAbs(num);
+    std::vector<int> sortedabs = num;
+
+    int product1=1;
+    int product2=1;
+    if (k%2==1 && num[0]<0)
+        product2=sorted[num.size()-1];
+
+    for (int v=0;v<k;v++)
+        product1=product1*sorted[num.size() - v -1];
+
+    if (k%2==1 && num[0]<0)
+    {
+        for (int w=0;w<k-1;w++)
+            product2=product2*sorted[ w ];
+    } else {
+    for (int w=0;w<k;w++)
+        product2=product2*sorted[ w ];
+    }
+    if (product2>product1)
+        return product2;
+    else
+        return product1;
+
+}
+
