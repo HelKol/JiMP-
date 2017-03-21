@@ -10,7 +10,7 @@ int **Array2D(int n_rows, int n_columns)
 
     for(int i=0; i< n_rows;i++)
     {
-        int* array[i]= new int[n_columns];
+        array[i]= new int[n_columns];
     }
     return array;
 }
