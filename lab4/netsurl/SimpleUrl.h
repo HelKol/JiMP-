@@ -12,7 +12,7 @@
 namespace nets{
     class SimpleUrl {
         std::string url;
-        std::regex regex {R"(^([a-zA-z]+):(\/\/)?([a-z\.-]+)(\/)?([^#?\n]+)?(\?([^#\n]+))?(#([^\n]+)?)?(:([0-9]+))?)"};
+        std::regex regex {R"(^([a-zA-z]+):(\/\/)?([a-z\.-]+)(\/[^#?\n]*)?(\?([^#\n]+))?(#([^\n]+)?)?(:([0-9]+))?)"};
         SimpleUrl(std::string value){
             url= value;
         }
