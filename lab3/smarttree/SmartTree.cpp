@@ -3,6 +3,9 @@
 //
 #include <ostream>
 #include <string>
+#include <iostream>
+#include <sstream>
+#include <regex>
 #include <memory>
 #include "SmartTree.h"
 
@@ -13,6 +16,7 @@ namespace datastructures{
 
     std::unique_ptr<SmartTree>
     InsertLeftChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> left_subtree) {
+        if(tree== nullptr) return nullptr;
         if(tree->left!= nullptr) {
             auto tmp = move(tree->left);
             left_subtree->left = move(tmp);
@@ -23,6 +27,7 @@ namespace datastructures{
 
     std::unique_ptr<SmartTree>
     InsertRightChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> right_subtree) {
+        if(tree== nullptr) return nullptr;
         if(tree->right!= nullptr) {
             auto tmp = move(tree->right);
             right_subtree->right = move(tmp);
@@ -44,19 +49,47 @@ namespace datastructures{
         if(tree->left!= nullptr) {
             output+= DumpTree(tree->left)+" ";
         } else {
-            output+= "[none]";
+            output+= "[none] ";
         }
         if (tree->right!= nullptr){
             output+= DumpTree(tree->right);
         } else{
-            output+=" [none]";
+            output+= "[none]";
         }
 
         output="["+std::to_string(tree->value)+" "+output+"]";
         return output;
     }
 
+    int ToInt(std::string value) {
+        std::stringstream ss;
+        int output;
+        ss << value;
+        ss >> output;
+        return output;
+    }
+
     std::unique_ptr<SmartTree> RestoreTree(const std::string &tree) {
-        return std::unique_ptr<SmartTree>();
+        std::string tmp;
+        std::string tmp2= tree;
+        int iterator= 0;
+        for(int i=0;i <tmp2.length();){
+            if(tmp2[i]=='[' and tmp[i+1]!='n'){
+                iterator++;
+                tmp2.erase(0);
+                while(tmp2[0]>47 and tmp2[0]<58){
+                    tmp+= tree[0];
+                    tmp2.erase(0);
+                }
+            }
+            tmp2.erase(0);
+        }
+
+        auto root = CreateLeaf(ToInt(tmp));
+//        root->left = RestoreTree(leftchild);
+//        root->right = RestoreTree(rightchild);
+
+
+        return root;
     }
 }
