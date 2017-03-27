@@ -17,7 +17,7 @@ using ::std::literals::operator""s;
 
 int main() {
 
-    vector<JsonValue> js {JsonValue{56.6},JsonValue{45},JsonValue{"abc"s}};
+    vector<JsonValue> js {JsonValue{56.6},JsonValue{-1.23},JsonValue{"abc"s}};
     map<string, JsonValue> obj_v {{"values",JsonValue{js}},{"name",JsonValue{"Test name"}},{"age",JsonValue{13}}};
     JsonValue obj {obj_v};
     // {"age": 13, "name": "Test name", "values": [56.6, 45, "abc"]} kolejność argumentów nie ma znaczenia w przypadku obiektu
@@ -32,4 +32,5 @@ int main() {
     } else {
         cout << "is absent" << endl;
     }
+
 }
