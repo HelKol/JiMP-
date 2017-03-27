@@ -23,10 +23,6 @@ namespace geometry{
         int exist;
         double Circumference(const Point &lu, const Point &lb, const Point &ru, const Point &rb);
         double Area(const Point &lu, const Point &lb, const Point &ru, const Point &rb);
-
-
-
-
     };
 }
 
