@@ -20,7 +20,7 @@ using ::std::sort;
 namespace minimaltimedifference {
 
 
-    int toint(string value) {
+    int ToInt(string value) {
         stringstream ss;
         int output;
         ss << value;
@@ -33,9 +33,8 @@ namespace minimaltimedifference {
         regex pattern{R"((\d{1,2}):(\d{2}))"};
         smatch matches;
         if (regex_match(time_HH_MM, matches, pattern)) {
-            output = toint(matches[1]) * 60 + toint(matches[2]);
+            output = ToInt(matches[1]) * 60 + ToInt(matches[2]);
         }
-
         return output;
     }
 
