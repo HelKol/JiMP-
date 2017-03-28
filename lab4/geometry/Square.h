@@ -14,15 +14,16 @@ using ::std::endl;
 using ::std::pow;
 using ::std::sqrt;
 
+
 namespace geometry{
     class Square {
     public:
-        Square(const Point &lu, const Point &lb, const Point &ru, const Point &rb);
+        Square( Point lu,  Point lb,  Point ru,  Point rb);
+        double Circumference();
+        double Area();
+    private:
         Point lu,lb,ru,rb;
-        int Exist(const Point &lu, const Point &lb, const Point &ru, const Point &rb);
-        int exist;
-        double Circumference(const Point &lu, const Point &lb, const Point &ru, const Point &rb);
-        double Area(const Point &lu, const Point &lb, const Point &ru, const Point &rb);
+
 
 
 
