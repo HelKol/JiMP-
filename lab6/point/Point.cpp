@@ -1,23 +1,29 @@
 //
 // Created by rencpawe on 04.04.17.
 //
-
 #include "Point.h"
-
-
 //Definicja w Point.cpp
-#include "Point.h"
 #include <iomanip>
+#include <iostream>
+#include <string>
 #include <iostream>
 
 using ::std::istream;
 using ::std::ws;
 
+void Point::SetX(double x) {
+    x_=x;
+}
+
+void Point::SetY(double y) {
+    y_=y;
+}
+
 //Helper functions:
 void CheckNextChar(char c, istream* is) {
     int next_char = is->peek();
     if (next_char != c) {
-        throw runtime_error("invalid character");
+        throw std::runtime_error("invalid character");
     }
     is->ignore();
 }
@@ -45,4 +51,11 @@ istream& operator>>(istream & input, Point& p){
     p.SetY(ReadNumber(&input));
     CheckNextChar(')', &input);
     return input;      // Umożliwia cin >> a >> b >> c;
+}
+
+std::ostream& operator<<(std::ostream & output, Point& p){
+
+
+    return output<<"("<<p.x_<<", "<<p.y_<<")";
+
 }
