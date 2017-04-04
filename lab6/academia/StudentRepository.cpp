@@ -5,8 +5,9 @@
 #include "StudentRepository.h"
 
 namespace academia{
-    void StudyYear::operator++(StudyYear &) {
-        year_++;
-
+    void StudyYear::operator++() {
+        ++year_;
     }
+
+    StudyYear::StudyYear(int year_) : year_(year_) {}
 }

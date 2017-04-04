@@ -9,6 +9,17 @@
 
 
 namespace academia {
+    class StudyYear {
+    public:
+        StudyYear(int year=1);
+
+    private:
+        void operator++();
+    private:
+        int year_;
+    };
+
+
     class Student{
     private:
         std::string id_;
@@ -17,12 +28,7 @@ namespace academia {
         std::string program_;
         StudyYear year_;
     };
-    class StudyYear {
-        void operator++(StudyYear&);
-    private:
-        int year_;
-    };
-}
 
+}
 
 #endif //JIMP_EXERCISES_STUDENTREPOSITORY_H
