@@ -43,6 +43,13 @@ namespace datastructures{
             PrintTreeInOrder(unique_ptr->right, out);
         }
     }
+    void Pt(const std::unique_ptr<SmartTree> &unique_ptr) {
+        if(unique_ptr!= nullptr){
+            std::cout<<unique_ptr->value<<", ";
+            Pt(unique_ptr->left);
+            Pt(unique_ptr->right);
+        }
+    }
 
     std::string DumpTree(const std::unique_ptr<SmartTree> &tree) {
         std::string output;
