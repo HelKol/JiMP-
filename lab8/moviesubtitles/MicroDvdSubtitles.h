@@ -23,29 +23,30 @@ namespace moviesubs{
         void static validateLineFormat(const std::string line);
     };
 
-    class Exception : public std::runtime_error{
+    class Exception{
     protected:
         int line;
-
+        string msg;
     public:
         virtual int LineAt() const { return line; }
-        Exception(std::string str, int line) : line(line), std::runtime_error(str) {}
+        Exception(std::string msg);
+        string message() const;
     };
 
 
     class NegativeFrameAfterShift : public Exception {
     public:
-        NegativeFrameAfterShift(string message, int line);
+        NegativeFrameAfterShift(std::string message);
     };
 
     class SubtitleEndBeforeStart : public Exception {
     public:
-        SubtitleEndBeforeStart(string message, int line);
+        SubtitleEndBeforeStart(std::string message);
     };
 
     class InvalidSubtitleLineFormat : public Exception {
     public:
-        InvalidSubtitleLineFormat(string message, int line);
+        InvalidSubtitleLineFormat(string message);
     };
 }
 

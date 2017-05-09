@@ -71,14 +71,13 @@ using std::stringstream;
         }
     }
 
+    Exception::Exception(string message) : msg(message){};
+    string Exception::message() const {
+        return msg;}
 
+    NegativeFrameAfterShift::NegativeFrameAfterShift(string msg) : Exception(msg){};
 
-    NegativeFrameAfterShift::NegativeFrameAfterShift(string msg, int line) : Exception(
-            "At line "s + std::to_string(line) + ": " + msg, line){};
+    SubtitleEndBeforeStart::SubtitleEndBeforeStart(string msg) : Exception(msg){};
 
-    SubtitleEndBeforeStart::SubtitleEndBeforeStart(string msg) : Exception(
-            "At line "s + std::to_string(line) + ": " + msg, line){};
-
-    InvalidSubtitleLineFormat::InvalidSubtitleLineFormat(string msg, int line) : Exception(
-            "At line "s + std::to_string(line) + ": " + msg, line){};
+    InvalidSubtitleLineFormat::InvalidSubtitleLineFormat(string msg) : Exception(msg){};
 }
