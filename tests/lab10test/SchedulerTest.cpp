@@ -20,8 +20,8 @@
 using ::academia::Schedule;
 using ::academia::SchedulingItem;
 using ::academia::Scheduler;
-using ::academia::GreedyScheduler;
 using ::academia::NoViableSolutionFound;
+using ::academia::GreedyScheduler;
 
 using ::std::unique_ptr;
 using ::std::make_unique;
