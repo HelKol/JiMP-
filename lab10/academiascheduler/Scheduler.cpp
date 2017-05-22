@@ -14,6 +14,15 @@ namespace academia{
         return list_[id];
     }
 
+
+    Schedule Schedule::OfCourse(int course_id) const {
+        Schedule new_one;
+        for(const auto &d : list_){
+            if (d.CourseId()== course_id) new_one.InsertScheduleItem(d);
+        }
+        return new_one;
+    }
+
     Schedule Schedule::OfTeacher(int teacher_id) const {
         Schedule new_one;
         for(const auto &d : list_){
@@ -40,7 +49,7 @@ namespace academia{
 
     std::vector<int> Schedule::AvailableTimeSlots(int n_time_slots) const {
         std::vector<int> tmp;
-        for(int i=0;i<n_time_slots;i++) tmp.push_back(i+1);
+        for(int d=0;d<n_time_slots;d++) tmp.push_back(d+1);
 
 //        std::remove_if(tmp.begin(),tmp.end(),[](const int & a){for(auto &d: list_){if(d.TimeSlot()== a) return true;}});
         int z=0;
@@ -57,24 +66,63 @@ namespace academia{
         return tmp;
     }
 
-    void Schedule::InsertScheduleItem(const SchedulingItem &item) {
-        list_.push_back(item);
+    void Schedule::InsertScheduleItem(const SchedulingItem &schedulingItem) {
+        list_.push_back(schedulingItem);
     }
 
     size_t Schedule::Size() const {
         return list_.size();
     }
 
-    Schedule Scheduler::PrepareNewSchedule(const std::vector<int> &rooms,
+    Schedule GreedyScheduler::PrepareNewSchedule(const std::vector<int> &rooms,
                                            const std::map<int, std::vector<int>> &teacher_courses_assignment,
-                                           const std::map<int, std::set<int>> &courses_of_year, int n_time_slots){
+                                           const std::map<int, std::set<int>> &courses_of_year,
+                                                 int n_time_slots){
+        Schedule output;
+        bool is_error;
+        bool Unavailable[rooms.size()][n_time_slots]{};
+        std::vector<int> free_places;
 
-        
+        for(auto teacher : teacher_courses_assignment) {
+            std::vector<int> tmp = teacher.second;
+            for(const auto &course : tmp) {
+                output.InsertScheduleItem(SchedulingItem(course,teacher.first,0,0,0));
+            }
+        }
 
-        throw NoViableSolutionFound("NoSolution");
+        for(auto &schedulingItem : output.list_) {
+            for (auto year : courses_of_year) {
+                for (auto course : year.second) {
+                    if (schedulingItem.CourseId()== course) schedulingItem.InsertYear(year.first);
+                }
+            }
+        }
+
+
+        for(auto &d : output.list_){
+            free_places.clear();
+            std::vector<int> availableCourses = output.OfCourse(d.CourseId()).AvailableTimeSlots(n_time_slots);
+            std::vector<int> availableTeachers = output.OfTeacher(d.TeacherId()).AvailableTimeSlots(n_time_slots);
+            set_intersection(availableTeachers.begin(), availableTeachers.end(),
+                             availableCourses.begin(), availableCourses.end(), back_inserter(free_places));
+            is_error=false;
+            for(int i= 0;i<rooms.size();++i){
+                for(auto time : free_places){
+                    if (!Unavailable[i][time] && !is_error){
+                        is_error= true;
+                        Unavailable[i][time]= true;
+                        d.InsertRoomId(rooms[i]);
+                        d.InsertTimeSlot(time);
+                    }
+                }
+            }
+            if (!is_error)
+                throw NoViableSolutionFound{"error"};
+        }
+        return output;
     }
 
-    NoViableSolutionFound::NoViableSolutionFound(std::string) {
+    NoViableSolutionFound::NoViableSolutionFound(const std::string &__arg) : runtime_error(__arg) {
 
     }
 }
