@@ -1,0 +1,14 @@
+//
+// Created by prenc on 30.05.17.
+//
+
+#ifndef JIMP_EXERCISES_SEQUENTIALGENERATOR_H
+#define JIMP_EXERCISES_SEQUENTIALGENERATOR_H
+
+
+class SequentialGenerator {
+
+};
+
+
+#endif //JIMP_EXERCISES_SEQUENTIALGENERATOR_H
