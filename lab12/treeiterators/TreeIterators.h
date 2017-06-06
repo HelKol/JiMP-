@@ -1,13 +1,13 @@
 //
-// Created by prenc on 30.05.17.
+// Created by Hela on 06.06.2017.
 //
 
-#ifndef JIMP_EXERCISES_TREE_H
-#define JIMP_EXERCISES_TREE_H
+#ifndef JIMP_EXERCISES_TREEITERATORS_H
+#define JIMP_EXERCISES_TREEITERATORS_H
 
 #include <memory>
-
-namespace tree {
+#include <iostream>
+namespace tree{
     template<class T>
     class Tree {
     public:
@@ -24,10 +24,10 @@ namespace tree {
             depth_= i;
             Tree* a = this;
             while (1) {
-                if (size_==1) {
-                    a->root_ = std::make_unique<Tree>(e);
-                    a->left_ = nullptr;
-                    a->right_ = nullptr;
+                if (size_==1){
+                    a->root_= std::make_unique<Tree>(e);
+                    a->left_= nullptr;
+                    a->right_= nullptr;
                     break;
                 }
                 if (e < a->key_) {
@@ -51,7 +51,13 @@ namespace tree {
         bool Find(const T &e) {
 
         }
-
+        void static InOrder(const std::unique_ptr<Tree> a) {
+            if (a != nullptr) {
+                InOrder(a->left_);
+                std::cout << a->key_ << std::endl;
+                InOrder(a->right_);
+            }
+        }
         T Value() {
             return key_;
         }
@@ -67,14 +73,16 @@ namespace tree {
     private:
         std::unique_ptr<Tree> left_;
         std::unique_ptr<Tree> right_;
-        std:: unique_ptr<Tree> root_;
+        std::unique_ptr<Tree> root_;
 
         T key_;
 
         size_t size_;
         size_t depth_;
     };
+
+
+
 }
 
-
-#endif //JIMP_EXERCISES_TREE_H
+#endif //JIMP_EXERCISES_TREEITERATORS_H
