@@ -4,38 +4,47 @@
 
 #ifndef JIMP_EXERCISES_TEACHERHASH_H
 #define JIMP_EXERCISES_TEACHERHASH_H
+
 #include <string>
 
 using std::string;
 
-namespace academia{
-    class TeacherId{
+namespace academia {
+    class TeacherId {
     public:
-        TeacherId( int id): id_(id){};
-        operator int() {return id_;};
+        TeacherId(int id);
+
+        TeacherId(TeacherId &teacher);
+
+        operator int() const;
+
+        bool operator!=(const TeacherId &teacher) const;
     private:
         int id_;
     };
-    class Teacher{
-        Teacher(TeacherId &id, string &name,string workplace):id_(id),name_(name),workplace_(workplace){
-        }
-        string Name() {return name_;};
-        TeacherId Id(){return id_;};
 
+    class Teacher {
+    public:
+        Teacher(const TeacherId &id, const string &name, string workplace);
+
+        bool operator==(const Teacher &teacher) const;
+
+        bool operator!=(const Teacher &teacher) const;
+
+        string Name() const;
+
+        int Id() const;
+
+        string Department() const { return workplace_; };
     private:
-        TeacherId id_;
+        int id_;
         string name_;
         string workplace_;
-
-
     };
 
-    class TeacherHash{
+    class TeacherHash {
     public:
-        TeacherHash(){};
-        int operator () ( Teacher teacher){
-            return 0;
-        };
+        int operator()(const Teacher &teacher) const;
     };
 }
 
